@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* BinMove design system — dark theme with neon green accents.
+   All colors MUST be HSL. */
+
+@layer base {
+  :root {
+    /* Core surfaces */
+    --background: 0 0% 4%;
+    --foreground: 150 10% 96%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 150 10% 96%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 150 10% 96%;
+
+    /* BinMove neon green */
+    --primary: 142 76% 50%;
+    --primary-foreground: 0 0% 5%;
+    --primary-glow: 142 90% 60%;
+    --primary-soft: 142 60% 20%;
+
+    --secondary: 0 0% 11%;
+    --secondary-foreground: 150 10% 96%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 150 5% 60%;
+
+    --accent: 142 76% 50%;
+    --accent-foreground: 0 0% 5%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 142 76% 50%;
+
+    --radius: 1rem;
+
+    /* Brand gradients & shadows */
+    --gradient-green: linear-gradient(135deg, hsl(142 76% 50%), hsl(160 80% 45%));
+    --gradient-radial-green: radial-gradient(circle at center, hsl(142 76% 45% / 0.25), transparent 70%);
+    --shadow-glow: 0 0 40px hsl(142 76% 50% / 0.35);
+    --shadow-card: 0 10px 40px -10px hsl(0 0% 0% / 0.6);
+
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 150 10% 90%;
+    --sidebar-primary: 142 76% 50%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 150 10% 96%;
+    --sidebar-border: 0 0% 14%;
+    --sidebar-ring: 142 76% 50%;
+  }
+
+  .dark {
+    /* Same as root — app is dark-only */
+    --background: 0 0% 4%;
+    --foreground: 150 10% 96%;
+    --card: 0 0% 7%;
+    --card-foreground: 150 10% 96%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 150 10% 96%;
+    --primary: 142 76% 50%;
+    --primary-foreground: 0 0% 5%;
+    --secondary: 0 0% 11%;
+    --secondary-foreground: 150 10% 96%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 150 5% 60%;
+    --accent: 142 76% 50%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 142 76% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", system-ui, sans-serif;
+    background-image:
+      radial-gradient(circle at 15% 20%, hsl(142 76% 30% / 0.08), transparent 40%),
+      radial-gradient(circle at 85% 80%, hsl(160 80% 35% / 0.06), transparent 40%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Leaflet dark tweaks */
+.leaflet-container {
+  background: hsl(0 0% 6%) !important;
+  font-family: "Inter", sans-serif;
+}
+.leaflet-control-attribution {
+  background: hsl(0 0% 5% / 0.7) !important;
+  color: hsl(150 5% 60%) !important;
+}
+.leaflet-control-attribution a {
+  color: hsl(142 76% 55%) !important;
+}
+.leaflet-control-zoom a {
+  background-color: hsl(0 0% 8%) !important;
+  color: hsl(150 10% 96%) !important;
+  border-color: hsl(0 0% 14%) !important;
+}
+.leaflet-control-zoom a:hover {
+  background-color: hsl(0 0% 12%) !important;
+  color: hsl(142 76% 60%) !important;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: hsl(0 0% 7%) !important;
+  color: hsl(150 10% 96%) !important;
+  border: 1px solid hsl(0 0% 14%) !important;
+  box-shadow: 0 10px 30px hsl(0 0% 0% / 0.6) !important;
+}
+.leaflet-popup-content {
+  margin: 14px 16px !important;
+  font-family: "Inter", sans-serif !important;
+}
+.leaflet-popup-close-button {
+  color: hsl(150 5% 60%) !important;
+}
+
+/* Custom marker pulse */
+.binmove-marker-pulse {
+  position: relative;
+}
+.binmove-marker-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 2px solid hsl(142 76% 55%);
+  opacity: 0;
+  animation: binmove-pulse 2s ease-out infinite;
+}
+@keyframes binmove-pulse {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* Truck route dash animation */
+@keyframes binmove-dash {
+  to { stroke-dashoffset: -20; }
+}
+.binmove-route-active {
+  stroke-dasharray: 8 6;
+  animation: binmove-dash 1s linear infinite;
+}
+
+/* Glow */
+.glow-green {
+  box-shadow: 0 0 30px hsl(142 76% 50% / 0.35);
+}
